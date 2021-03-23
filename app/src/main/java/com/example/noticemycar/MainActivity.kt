@@ -19,5 +19,10 @@ class MainActivity : AppCompatActivity() {
             var rejestracja: Intent = Intent(applicationContext, RegisterPanel::class.java)
             startActivity(rejestracja)
         }
+
+        tymczas_prof.setOnClickListener {
+            var profil: Intent = Intent(applicationContext, ProfileView::class.java)
+            startActivity(profil)
+        }
     }
 }
