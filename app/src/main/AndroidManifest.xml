@@ -2,14 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.noticemycar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/splashscreenlogo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/splashscreenlogo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NoticeMyCar">
-        <activity android:name=".ProfileView"></activity>
+        android:theme="@style/Theme.NoticeMyCar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Logout"></activity>
+        <activity android:name=".LoginResult" />
+        <activity android:name=".ProfileView" />
         <activity android:name=".RegisterPanel" />
         <activity android:name=".LoginPanel" />
         <activity android:name=".SplashScreenActivity">
