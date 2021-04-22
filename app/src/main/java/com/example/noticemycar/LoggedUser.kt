@@ -1,4 +1,6 @@
 package com.example.noticemycar
-public var UserToken: String = ""
+var SHARED_PREFS: String = "sharedPrefs"
+var SHAREDPREFSTOKEN: String = ""
+var UserToken: String = ""
 class LoggedUser {
 }
