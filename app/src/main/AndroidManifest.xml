@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoticeMyCar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Logout"></activity>
+        <activity android:name=".RegisterResult"></activity>
+        <activity android:name=".Logout" />
         <activity android:name=".LoginResult" />
         <activity android:name=".ProfileView" />
         <activity android:name=".RegisterPanel" />

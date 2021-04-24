@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.KeyEvent
 import android.view.View
@@ -26,7 +28,7 @@ class LoginPanel : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_panel)
-        loginpassword.setOnKeyListener { v, keyCode, event ->
+        loginpassword.setOnKeyListener { _, keyCode, event ->
             when {
                 ((keyCode == KeyEvent.KEYCODE_ENTER) && (event.action == KeyEvent.ACTION_DOWN)) -> {
                     logindo.performClick()
@@ -36,20 +38,47 @@ class LoginPanel : AppCompatActivity() {
             }
         }
 
-        logindo.setOnClickListener{
-            if(TextUtils.isEmpty(loginmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(loginmail.text.toString()).matches()) {
-                loginbladmail.setVisibility(View.VISIBLE)
-                return@setOnClickListener
-            }
-            else
-                loginbladmail.setVisibility(View.INVISIBLE)
+        loginmail.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            if(loginpassword.text.toString().length<6) {
-                loginbladhaslo.setVisibility(View.VISIBLE)
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(TextUtils.isEmpty(loginmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(loginmail.text.toString()).matches())
+                    loginbladmail.setVisibility(View.VISIBLE)
+                else
+                    loginbladmail.setVisibility(View.INVISIBLE)
+            }
+        })
+
+        loginpassword.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(loginpassword.text.toString().length<6)
+                    loginbladhaslo.setVisibility(View.VISIBLE)
+                else
+                    loginbladhaslo.setVisibility(View.INVISIBLE)
+            }
+        })
+
+
+        logindo.setOnClickListener{
+            if(loginbladmail.visibility==View.VISIBLE || loginbladhaslo.visibility==View.VISIBLE) {
+                loginblad.setText("Popraw powyższe błędy!")
+                loginblad.setVisibility(View.VISIBLE)
                 return@setOnClickListener
             }
             else
-                loginbladhaslo.setVisibility(View.INVISIBLE)
+                loginblad.setVisibility(View.INVISIBLE)
+
+            if(TextUtils.isEmpty(loginmail.text.toString()) || TextUtils.isEmpty(loginpassword.text.toString())) {
+                loginblad.setText("Uzupełnij wszystkie pola w formularzu!")
+                loginblad.setVisibility(View.VISIBLE)
+                return@setOnClickListener
+            }
+            else
+                loginblad.setVisibility(View.INVISIBLE)
 
             val login = Thread(Runnable {
                 try {
@@ -58,15 +87,11 @@ class LoginPanel : AppCompatActivity() {
                     val mURL = URL("https://citygame.ga/api/auth/login")
 
                     with(mURL.openConnection() as HttpURLConnection) {
-                        // optional default is GET
                         requestMethod = "POST"
 
                         val wr = OutputStreamWriter(getOutputStream());
                         wr.write(reqParam);
                         wr.flush();
-
-                        println("URL : $url")
-                        println("Response Code : $responseCode")
 
                         if(responseCode!=200){
                             UserToken = ""

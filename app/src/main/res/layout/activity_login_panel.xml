@@ -88,4 +88,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginpassword"
         app:layout_constraintVertical_bias="0.083" />
+
+    <TextView
+        android:id="@+id/loginblad"
+        android:layout_width="302dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="304dp"
+        android:gravity="center"
+        android:text="Popraw powyższe błędy!"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
