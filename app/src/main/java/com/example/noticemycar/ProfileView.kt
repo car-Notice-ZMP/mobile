@@ -30,9 +30,6 @@ class ProfileView : AppCompatActivity() {
                     setRequestProperty("Authorization", "Bearer $UserToken")
                     requestMethod = "GET"
 
-                    println("URL : $url")
-                    println("Response Code : $responseCode")
-
                     BufferedReader(InputStreamReader(inputStream)).use {
                         val response = StringBuffer()
 
@@ -54,7 +51,7 @@ class ProfileView : AppCompatActivity() {
             }
         })
         getprofile.start()
-        while(getprofile.isAlive)
+        while(getprofile.isAlive){}
 
         show_name.text = name
         show_email.text = email

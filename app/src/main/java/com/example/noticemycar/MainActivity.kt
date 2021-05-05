@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
                 var prof: Intent = Intent(applicationContext, ProfileView::class.java)
                 startActivity(prof)
             }
+            ogloszenia.setOnClickListener {
+                var ogl: Intent = Intent(applicationContext, NoticesAll::class.java)
+                startActivity(ogl)
+            }
         }
     }
 }
