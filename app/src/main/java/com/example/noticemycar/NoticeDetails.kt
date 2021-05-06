@@ -57,6 +57,5 @@ class NoticeDetails : AppCompatActivity() {
         przebieg.text = jsonObject.optString("mileage")
         cena.text = jsonObject.optString("price")
         nadwozie.text = jsonObject.optString("body")
-        //println(jsonObject.toString())
     }
 }
