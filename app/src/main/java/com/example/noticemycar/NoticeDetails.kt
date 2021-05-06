@@ -1,28 +1,25 @@
 package com.example.noticemycar
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ListView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_notice_details.*
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class NoticesAll : AppCompatActivity() {
+class NoticeDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notices_all)
+        setContentView(R.layout.activity_notice_details)
 
         var jsonStr: String = ""
 
         val getnotices = Thread(Runnable {
             try {
-                val mURL = URL("https://citygame.ga/api/notices/all")
+                val mURL = URL("https://citygame.ga/api/notices/show/"+intent.getIntExtra("id", 4))
                 with(mURL.openConnection() as HttpURLConnection) {
                     requestMethod = "GET"
 
@@ -45,23 +42,21 @@ class NoticesAll : AppCompatActivity() {
         getnotices.start()
         while(getnotices.isAlive){}
 
-        var listview = findViewById<ListView>(R.id.listView)
-        var list = mutableListOf<NoticeListModel>()
-
-        val jsonObject = JSONObject(jsonStr)
-        val jsonArray = jsonObject.optJSONArray("All notices")
-        for(i in 0 until jsonArray.length()){
-            val jsonObject = jsonArray.getJSONObject(i)
-            list.add(NoticeListModel(jsonObject.optString("mark")+" "+jsonObject.optString("model"), "Rok: "+jsonObject.optString("year"), jsonObject.optString("price")+" zł", jsonObject.optString("image_url"), jsonObject.optString("id").toInt()))
-
-        }
-
-        listview.adapter = NoticeListAdapter(this, R.layout.row, list)
-
-        listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id:Long ->
-            var details: Intent = Intent(applicationContext, NoticeDetails::class.java)
-            details.putExtra("id", list.get(position).id)
-            startActivity(details)
-        }
+        var jsonObject = JSONObject(jsonStr)
+        val jsonArray = jsonObject.optJSONArray("notice_with_comment")
+        jsonObject = jsonArray.getJSONObject(0)
+        Picasso.get().load(jsonObject.optString("image_url")).into(zdjecie)
+        tytul.text = jsonObject.optString("title")
+        opis.text = jsonObject.optString("message")
+        autor.text = jsonObject.optString("notice_author")
+        emailautora.text = jsonObject.optString("notice_author_email")
+        marka.text = jsonObject.optString("mark")
+        model.text = jsonObject.optString("model")
+        kolor.text = jsonObject.optString("color")
+        rok.text = jsonObject.optString("year")
+        przebieg.text = jsonObject.optString("mileage")
+        cena.text = jsonObject.optString("price")
+        nadwozie.text = jsonObject.optString("body")
+        //println(jsonObject.toString())
     }
 }

@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoticeMyCar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NoticesAll"></activity>
+        <activity android:name=".NoticeDetails"></activity>
+        <activity android:name=".NoticesAll" />
         <activity android:name=".RegisterResult" />
         <activity android:name=".Logout" />
         <activity android:name=".LoginResult" />
