@@ -49,7 +49,8 @@ class NoticesAll : AppCompatActivity() {
         var list = mutableListOf<NoticeListModel>()
 
         val jsonObject = JSONObject(jsonStr)
-        val jsonArray = jsonObject.optJSONArray("All notices")
+        val jsonArray = jsonObject.optJSONArray("All_notices")
+
         for(i in 0 until jsonArray.length()){
             val jsonObject = jsonArray.getJSONObject(i)
             list.add(NoticeListModel(jsonObject.optString("mark")+" "+jsonObject.optString("model"), "Rok: "+jsonObject.optString("year"), jsonObject.optString("price")+" zł", jsonObject.optString("image_url"), jsonObject.optString("id").toInt()))
