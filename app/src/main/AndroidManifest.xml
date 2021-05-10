@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoticeMyCar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NoticeDetails"></activity>
+        <activity android:name=".NoticeSearch" />
+        <activity android:name=".NoticeSearchResult" />
+        <activity android:name=".NoticeAdd" />
+        <activity android:name=".NoticeDetails" />
         <activity android:name=".NoticesAll" />
         <activity android:name=".RegisterResult" />
         <activity android:name=".Logout" />

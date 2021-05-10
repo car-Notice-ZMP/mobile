@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity() {
                 var ogl: Intent = Intent(applicationContext, NoticesAll::class.java)
                 startActivity(ogl)
             }
+            ogloszeniasearch.setOnClickListener {
+                var oglsear: Intent = Intent(applicationContext, NoticeSearch::class.java)
+                startActivity(oglsear)
+            }
+            dodajogl.setOnClickListener {
+                var dodajog: Intent = Intent(applicationContext, NoticeAdd::class.java)
+                startActivity(dodajog)
+            }
         }
     }
 }

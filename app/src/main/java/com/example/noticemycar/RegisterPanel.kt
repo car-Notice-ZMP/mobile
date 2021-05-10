@@ -10,6 +10,7 @@ import android.util.Patterns
 import android.view.KeyEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_register_panel.*
+import java.io.DataOutputStream
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
@@ -77,7 +78,6 @@ class RegisterPanel : AppCompatActivity() {
             }
         })
 
-
         registerdo.setOnClickListener{
             if(regerrimie.visibility==View.VISIBLE || regerrmail.visibility==View.VISIBLE || regerrpass.visibility==View.VISIBLE || regerrpasscon.visibility==View.VISIBLE) {
                 regerr.setText("Popraw powyższe błędy!")
@@ -106,12 +106,10 @@ class RegisterPanel : AppCompatActivity() {
                     with(mURL.openConnection() as HttpURLConnection) {
                         requestMethod = "POST"
 
-                        val wr = OutputStreamWriter(getOutputStream());
-                        wr.write(reqParam);
+                        val wr = DataOutputStream(getOutputStream());
+                        var buffer:ByteArray = reqParam.toByteArray()
+                        wr.write(buffer);
                         wr.flush();
-
-                        println("URL : $url")
-                        println("Response Code : $responseCode")
 
                         var registerresult: Intent = Intent(applicationContext, RegisterResult::class.java).apply{
                             putExtra("EXTRA_RESPONSE", responseCode)
@@ -122,9 +120,7 @@ class RegisterPanel : AppCompatActivity() {
                     e.printStackTrace()
                 }
             })
-
             register.start()
-
         }
     }
 }
