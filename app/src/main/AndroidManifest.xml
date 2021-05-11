@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoticeMyCar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".NoticeAddResult"></activity>
         <activity android:name=".NoticeSearch" />
         <activity android:name=".NoticeSearchResult" />
         <activity android:name=".NoticeAdd" />
